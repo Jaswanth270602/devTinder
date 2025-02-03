@@ -1,18 +1,32 @@
 const express = require('express');
 const app = express();
+const PORT = 3000;
 
-app.use("/test",(req,res) => {
-    res.send("Hello World from test!");
-});
+app.get('/user', (req, res) => {
+    res.send({
+        firstName: "Jaswanth",
+        lastName: "Kumar",
+    });
+})
 
-app.use("/best",(req,res) => {
-    res.send("Hello World from best!");
-});
+app.post('/user', (req, res) => {
+    // Add user to DB
+    res.send("User Data saved successfully");
+})
 
-app.use("/",(req,res) => {
-    res.send("Hello World from dashboard!");
-});
+app.put('/user', (req, res) => {
+    // Update the user in DB
+    res.send("User Data updated successfully");
+})
 
-app.listen(3000, () => {
-    console.log("server listening on port 3000");
-});
+app.delete('/user', (req, res) => {
+    // Delete user from DB
+    res.send("User Data deleted successfully");
+})
+
+app.use('/', (req, res) => {
+    res.send('Welcome to devTinder');
+})
+app.listen(PORT, () => {
+    console.log('server listening on port ' + PORT);
+})
