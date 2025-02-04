@@ -1,31 +1,26 @@
 const express = require('express');
+const { adminAuth, userAuth } = require('./middlewares/auth');
+
+// Middleware for admin authentication
 const app = express();
 const PORT = 3000;
 
-app.get('/user', (req, res) => {
-    res.send({
-        firstName: "Jaswanth",
-        lastName: "Kumar",
-    });
+app.use('/admin', adminAuth );
+
+app.get('/admin/getAllData', (req, res) => {
+    res.send("Data sent successfully");
 })
 
-app.post('/user', (req, res) => {
-    // Add user to DB
-    res.send("User Data saved successfully");
+app.get('/admin/deleteUser', (req, res) => {
+    res.send("User deleted successfully");
 })
 
-app.put('/user', (req, res) => {
-    // Update the user in DB
-    res.send("User Data updated successfully");
+app.get('/user/login', (req, res) => {
+    res.send("User logged in successfully");
 })
 
-app.delete('/user', (req, res) => {
-    // Delete user from DB
-    res.send("User Data deleted successfully");
-})
-
-app.use('/', (req, res) => {
-    res.send('Welcome to devTinder');
+app.get('/user/getData',userAuth, (req, res) => {
+    res.send("User data sent successfully");
 })
 app.listen(PORT, () => {
     console.log('server listening on port ' + PORT);
