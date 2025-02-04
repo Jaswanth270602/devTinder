@@ -20,8 +20,16 @@ app.get('/user/login', (req, res) => {
 })
 
 app.get('/user/getData',userAuth, (req, res) => {
+    throw new Error("User not logged in");
     res.send("User data sent successfully");
 })
+
+app.use('/', (err, req, res, next) => {
+    if(err) {
+        res.status(500).send('something went wrong : ' + err.message);
+    }
+})
+
 app.listen(PORT, () => {
     console.log('server listening on port ' + PORT);
 })
