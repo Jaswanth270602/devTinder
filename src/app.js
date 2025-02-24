@@ -6,17 +6,12 @@ const User = require('./models/user');
 // Middleware for admin authentication
 const app = express();
 const PORT = 3000;
+app.use(express.json())
 
 
 app.post('/signup', async (req, res) => {
-    const user = new User({
-        firstName : "Aaron",
-        lastName : "Finch",
-        emailId : "finch@gmail.com",
-        password : "finch@123",
-        age : 32,
-        gender : "Male"
-    });
+
+    const user = new User(req.body);
     try {
         await user.save();
         res.send('User registered successfully');
